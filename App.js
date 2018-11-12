@@ -5,6 +5,8 @@ import SplitTheBillScreen from './src/screens/SplitTheBill/SplitTheBill';
 import AddUserScreen from './src/screens/AddUser/AddUser';
 import UserProfileScreen from './src/screens/UserProfile/UserProfile';
 import configureStore from './src/store/configureStore';
+import UserDetailScreen from './src/screens/UserDetail/UserDetail';
+import SideDrawer from './src/screens/SideDrawer/SideDrawer';
 
 const store = configureStore();
 
@@ -33,6 +35,13 @@ Navigation.registerComponent(
   store,
   Provider
 );
+Navigation.registerComponent(
+  'group-money.UserDetailScreen',
+  () => UserDetailScreen,
+  store,
+  Provider
+);
+Navigation.registerComponent('group-money.SideDrawer', () => SideDrawer);
 
 //START APP
 Navigation.startSingleScreenApp({
@@ -40,4 +49,7 @@ Navigation.startSingleScreenApp({
     screen: 'group-money.AuthScreen',
     title: 'Login'
   }
+  // appStyle: {
+  //   orientation: 'portrait'
+  // }
 });

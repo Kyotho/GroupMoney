@@ -1,5 +1,4 @@
-import { ADD_USER, DELETE_USER } from '../actions/actionTypes';
-import userImage from '../../assets/UnknownPersonImage.png';
+import { SET_USERS, REMOVE_USER } from '../actions/actionTypes';
 
 const initialState = {
   addedUsers: []
@@ -7,21 +6,19 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_USER:
+    case SET_USERS:
       return {
         ...state,
-        addedUsers: state.addedUsers.concat({
-          key: Math.random().toString(),
-          name: action.userName,
-          image: userImage
-        })
+        addedUsers: action.addedUsers
+        //adddedUsers(state wyzej): action.addedUsers(z users/actions z setUsers)
       };
+    // usuwanie userow w layoutcie
 
-    case DELETE_USER:
+    case REMOVE_USER:
       return {
         ...state,
         addedUsers: state.addedUsers.filter(user => {
-          return user.key !== state.selectedUser.key;
+          return user.key !== action.key;
         })
       };
 
