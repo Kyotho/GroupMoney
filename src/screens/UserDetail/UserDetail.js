@@ -18,6 +18,7 @@ class UserDetail extends Component {
     this.props.onDeleteUser(this.props.selectedUser.key);
     // selectedUser -> selectedUser w SplitTheBill selectedUser: selUser
     this.props.navigator.pop();
+    console.log(this.props.selectedUser.key);
   };
 
   // props.selectedUser => po zmianie UserDetail w klase musimy dodac this.props

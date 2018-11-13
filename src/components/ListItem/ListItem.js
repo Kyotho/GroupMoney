@@ -15,9 +15,12 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: 10,
     backgroundColor: '#eee',
-    marginBottom: 5,
+    marginBottom: 2,
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 3
   },
   userImage: {
     marginRight: 8,

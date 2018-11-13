@@ -5,7 +5,7 @@ import ListItem from '../ListItem/ListItem';
 const userList = props => {
   return (
     <FlatList
-      style={styles.listContainer}
+      style={[styles.listContainer, props.style]}
       data={props.addedUsers}
       renderItem={info => (
         <ListItem

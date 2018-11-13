@@ -7,9 +7,10 @@ import {
   Animated
 } from 'react-native';
 import { connect } from 'react-redux';
-
+import HeadingText from '../../components/UI/HeadingText/HeadingText';
 import UserList from '../../components/UserList/UserList';
 import { getUsers } from '../../store/actions/index';
+import ButtonWithBackground from '../../components/UI/ButtonWithBackground/ButtonWithBackground';
 // FIND PLACE
 
 class SplitTheBillScreen extends Component {
@@ -80,6 +81,7 @@ class SplitTheBillScreen extends Component {
       }
     });
   };
+
   // name odnosi sie do users w reducers
 
   render() {
@@ -107,27 +109,39 @@ class SplitTheBillScreen extends Component {
 
     if (this.state.usersLoaded) {
       content = (
-        <Animated.View
-          style={{
-            opacity: this.state.usersAnim
-          }}
-        >
-          <UserList
-            addedUsers={this.props.addedUsers}
-            onItemSelected={this.itemSelectedHandler}
-          />
-        </Animated.View>
+        // <Animated.View
+        //   style={{
+        //     opacity: this.state.usersAnim
+        //   }}
+        // >
+        <View>
+          <View style={styles.heading}>
+            <HeadingText style={styles.headingText}>
+              Select from the list of friends with whom you want to split the
+              bill
+            </HeadingText>
+          </View>
+          <View style={styles.list}>
+            <UserList
+              addedUsers={this.props.addedUsers}
+              onItemSelected={this.itemSelectedHandler}
+            />
+          </View>
+          <View style={styles.nextStepButton}>
+            <ButtonWithBackground color="#A3A3A3">
+              <Text>Next Step</Text>
+            </ButtonWithBackground>
+          </View>
+        </View>
+        // </Animated.View>
       );
     }
-    return (
-      <View style={this.state.usersLoaded ? null : styles.buttonContainer}>
-        {content}
-      </View>
-    );
+    return <View style={styles.container}>{content}</View>;
   }
 }
+
 const styles = StyleSheet.create({
-  buttonContainer: {
+  container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
@@ -142,6 +156,48 @@ const styles = StyleSheet.create({
     color: 'black',
     fontWeight: 'bold',
     fontSize: 26
+  },
+  textContainer: {
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    marginBottom: 20,
+    padding: 10,
+    width: '80%',
+    marginLeft: 30
+  },
+  heading: {
+    width: '80%',
+    marginLeft: 'auto',
+    marginRight: 'auto'
+  },
+  headingText: {
+    textAlign: 'center',
+    fontSize: 20,
+    color: 'gray'
+  },
+  list: {
+    width: 300,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: '5%',
+    borderWidth: 2,
+    borderColor: 'black',
+    height: '60%',
+    borderRadius: 5
+  },
+  nextStepButton: {
+    width: '30%',
+    // alignItems: 'center',
+    // justifyContent: 'center'
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: 15
+  },
+  nextStepButtonText: {
+    // marginLeft: 'auto',
+    // marginRight: 'auto',
+    // alignItems: 'center',
+    // justifyContent: 'center'
   }
 });
 
