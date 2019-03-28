@@ -10,12 +10,16 @@ const validate = (val, rules, comparedValue) => {
         isValid = isValid && minLengthValidator(val, rules[rule]);
         break;
 
+      case 'maxLength':
+        isValid = isValid && maxLengthValidator(val, rules[rule]);
+        break;
       case 'equalTo':
         isValid = isValid && equalToValidator(val, comparedValue[rule]);
         break;
       case 'notEmpty':
         isValid = isValid && notEmptyValidator(val);
         break;
+
       default:
         isValid = true;
     }
@@ -31,6 +35,10 @@ const emailValidator = val => {
 
 const minLengthValidator = (val, minLength) => {
   return val.length >= minLength;
+};
+
+const maxLengthValidator = (val, maxLength) => {
+  return val.length <= maxLength;
 };
 
 const equalToValidator = (val, checkValue) => {

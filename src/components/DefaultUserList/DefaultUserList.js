@@ -1,21 +1,20 @@
 import React from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 
-import ListItem from '../ListItem/ListItem';
+import DefaultListItem from '../DefaultListItem/DefaultListItem';
 
-const userList = props => {
+const defaultUserList = props => {
   return (
     <FlatList
       style={[styles.listContainer, props.style]}
       data={props.addedUsers}
       extraData={this.state}
       renderItem={info => (
-        <ListItem
+        <DefaultListItem
           userName={info.item.name}
           userImage={info.item.image}
-          onItemPressed={() => props.onItemSelected(info.item.key)}
-          onCheckboxSelect={() => props.onCheckboxSelect(info.item.key)}
-          onCheckboxDeSelect={() => props.onCheckboxDeSelect(info.item.key)}
+          // onItemPressed={() => props.onItemSelected(info.item.key)}
+
           // onItemPressed={() => console.log(info.item.key)}
         />
       )}
@@ -29,4 +28,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default userList;
+export default defaultUserList;

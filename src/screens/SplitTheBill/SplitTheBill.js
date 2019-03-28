@@ -9,9 +9,8 @@ import {
 import { connect } from 'react-redux';
 import HeadingText from '../../components/UI/HeadingText/HeadingText';
 import UserList from '../../components/UserList/UserList';
-import { getUsers } from '../../store/actions/index';
+import { getUsers, selectUser, deselectUser } from '../../store/actions/index';
 import ButtonWithBackground from '../../components/UI/ButtonWithBackground/ButtonWithBackground';
-// FIND PLACE
 
 class SplitTheBillScreen extends Component {
   static navigatorStyle = {
@@ -22,6 +21,7 @@ class SplitTheBillScreen extends Component {
     usersLoaded: false,
     removeAnim: new Animated.Value(1),
     usersAnim: new Animated.Value(0)
+    // selectedUsers: []
   };
 
   // funkcjonalnosc sideDrawera
@@ -33,6 +33,42 @@ class SplitTheBillScreen extends Component {
   componentDidMount() {
     this.props.onLoadUsers();
   }
+
+  onCheckboxSelect = key => {
+    // const selUser = this.props.addedUsers.find(addedUser => {
+    //   return addedUser.key === key;
+    // });
+    // this.setState({
+    //   selectedUsers: [...this.state.selectedUsers, selUser]
+    // });
+
+    this.props.onSelectUser(key);
+    // this.props.onSelectUser(key);
+  };
+
+  onCheckboxDeSelect = () => {
+    // let selectedUsers = this.state.selectedUsers.slice();
+    // selectedUsers[key] = !selectedUsers[key];
+    // this.setState({ selectedUsers });
+
+    this.props.onDeselectUser();
+
+    // let users = [...this.state.selectedUsers];
+    // users.map(function(item, i) {
+    //   if (item.key === key) {
+    //     users.splice(i, 1);
+    //   }
+    // } else {
+    //   console.log('user ' + i + ' deselected');
+    // }
+    // });
+
+    // this.setState({
+    //   selectedUsers: users
+    // });
+
+    // this.props.onSelectUser(key);
+  };
 
   onNavigatorEvent = event => {
     // console.log(event);
@@ -66,7 +102,8 @@ class SplitTheBillScreen extends Component {
     });
   };
 
-  itemSelectedHandler = key => {
+  userSelectedHandler = key => {
+    // wybieranie danego usera z listy
     const selUser = this.props.addedUsers.find(addedUser => {
       return addedUser.key === key;
     });
@@ -82,7 +119,19 @@ class SplitTheBillScreen extends Component {
     });
   };
 
+  buttonSelectedHandler = () => {
+    // pushowanie strony SetBill
+    console.log(this.props.selectedUsers);
+    this.props.navigator.push({
+      screen: 'group-money.SetBillScreen'
+    });
+  };
+
   // name odnosi sie do users w reducers
+
+  selectedHandler = key => {
+    this.props.onSelectUser(key);
+  };
 
   render() {
     let content = (
@@ -124,11 +173,19 @@ class SplitTheBillScreen extends Component {
           <View style={styles.list}>
             <UserList
               addedUsers={this.props.addedUsers}
-              onItemSelected={this.itemSelectedHandler}
+              onItemSelected={this.userSelectedHandler}
+              onCheckboxSelect={this.onCheckboxSelect}
+              onCheckboxDeSelect={this.onCheckboxDeSelect}
             />
           </View>
+
           <View style={styles.nextStepButton}>
-            <ButtonWithBackground color="#A3A3A3">
+            <ButtonWithBackground
+              color="#A3A3A3"
+              //onPress={() => console.log(() => this.state.selected)}
+              onPress={this.buttonSelectedHandler}
+              //onPress={this.selectedHandler}
+            >
               <Text>Next Step</Text>
             </ButtonWithBackground>
           </View>
@@ -203,14 +260,20 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    addedUsers: state.addedUsers.addedUsers
-    // state.addedUsers.addedUsers pierwsze addedusers odnosi sie do configure store a drugie do users w reducers
+    addedUsers: state.addedUsers.addedUsers,
+    selectedUsers: state.addedUsers.selectedUsers,
+    selected: state.addedUsers.selected
+    // state.addedUsers.addedUsers pierwsze addedusers odnosi sie do configure store a drugie do users w reducer
+
+    // selectedUser: state.selectedUser.selectedUser
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onLoadUsers: () => dispatch(getUsers())
+    onLoadUsers: () => dispatch(getUsers()),
+    onSelectUser: key => dispatch(selectUser(key)),
+    onDeselectUser: () => dispatch(deselectUser())
   };
 };
 export default connect(

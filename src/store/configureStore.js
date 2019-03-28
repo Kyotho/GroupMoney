@@ -3,11 +3,16 @@ import thunk from 'redux-thunk';
 // import usersReducer from './reducers/users';
 import addedUsers from './reducers/users';
 import ui from './reducers/ui';
+import auth from './reducers/auth';
+import selectedUsers from './reducers/selectedUser';
 
+// import selectedUser from './reducers/selectedUser';
 const rootReducer = combineReducers({
   // addedUsers: usersReducer, uzywajac tej samej nazwy dla reducera i dla stanu skracamy zapis w combineReducers wypisujac reducery po przecinku
   addedUsers,
-  ui
+  ui,
+  auth,
+  selectedUsers
 });
 
 let composeEnhancers = compose;

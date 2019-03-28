@@ -7,6 +7,10 @@ import UserProfileScreen from './src/screens/UserProfile/UserProfile';
 import configureStore from './src/store/configureStore';
 import UserDetailScreen from './src/screens/UserDetail/UserDetail';
 import SideDrawer from './src/screens/SideDrawer/SideDrawer';
+import SetBillScreen from './src/screens/SetBill/SetBill';
+import AddCardScreen from './src/screens/AddCard/AddCard';
+import AddPhoneScreen from './src/screens/AddPhone/AddPhone';
+import TransactionsScreen from './src/screens/Transactions/Transactions';
 
 const store = configureStore();
 
@@ -38,6 +42,30 @@ Navigation.registerComponent(
 Navigation.registerComponent(
   'group-money.UserDetailScreen',
   () => UserDetailScreen,
+  store,
+  Provider
+);
+Navigation.registerComponent(
+  'group-money.SetBillScreen',
+  () => SetBillScreen,
+  store,
+  Provider
+);
+Navigation.registerComponent(
+  'group-money.AddCardScreen',
+  () => AddCardScreen,
+  store,
+  Provider
+);
+Navigation.registerComponent(
+  'group-money.AddPhoneScreen',
+  () => AddPhoneScreen,
+  store,
+  Provider
+);
+Navigation.registerComponent(
+  'group-money.TransactionsScreen',
+  () => TransactionsScreen,
   store,
   Provider
 );

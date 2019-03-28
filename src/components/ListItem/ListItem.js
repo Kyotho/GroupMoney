@@ -1,15 +1,54 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import React, { Component } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  CheckBox
+} from 'react-native';
 
-const listItem = props => (
-  <TouchableOpacity onPress={props.onItemPressed}>
-    <View style={styles.listItem}>
-      <Image source={props.userImage} style={styles.userImage} />
-      <Text>{props.userName}</Text>
-    </View>
-  </TouchableOpacity>
-);
+class ListItem extends Component {
+  constructor() {
+    super();
+    this.state = {
+      checked: false
+    };
+  }
 
+  onCheckboxPress() {
+    this.setState({ checked: !this.state.checked });
+    this.checkboxToggle();
+  }
+
+  checkboxToggle() {
+    if (this.state.checked) {
+      this.props.onCheckboxDeSelect();
+    } else {
+      this.props.onCheckboxSelect();
+    }
+  }
+
+  render() {
+    return (
+      <TouchableOpacity onPress={this.props.onItemPressed}>
+        <View style={styles.listItem}>
+          <Image source={this.props.userImage} style={styles.userImage} />
+          <Text>{this.props.userName}</Text>
+          <CheckBox
+            title="Click Here"
+            value={this.state.checked}
+            checked={this.state.checked}
+            onValueChange={() => {
+              this.onCheckboxPress();
+            }}
+            style={styles.checkBox}
+          />
+        </View>
+      </TouchableOpacity>
+    );
+  }
+}
 const styles = StyleSheet.create({
   listItem: {
     width: '100%',
@@ -26,7 +65,10 @@ const styles = StyleSheet.create({
     marginRight: 8,
     height: 30,
     width: 30
+  },
+  checkBox: {
+    alignSelf: 'flex-end'
   }
 });
 
-export default listItem;
+export default ListItem;
